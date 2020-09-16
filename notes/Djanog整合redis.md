@@ -11,4 +11,38 @@
 ![不依赖django的redis配置方法](pictrue/不依赖django的redis配置方法.png)
 ##### Django中使用redis的方法
 ```python
+#coding:utf-8
+
+from django.http import HttpResponse
+from django_redis import get_redis_connection
+from redis import Redis
+
+def index(request,name,age):
+	# name = request.GET.get("name","")
+	# age = request.GET.get("age", 0)
+    cache = get_redis_connection("default")
+    cache.set("name",name,20)
+    cache.set("age",age,20)
+    print("name:{}".format(cache.get("name")))
+    print("age:{}".format(cache.get("age")))
+    return HttpResponse("hello, i am {0},age is {1}".format(cache.get("name"),cache.get("age")))
+```
+##### 不依赖Django使用Redis的方法
+```python
+#coding:utf-8
+
+from django.http import HttpResponse
+from django_redis import get_redis_connection
+from redis import Redis
+
+def index(request,name,age):
+	# name = request.GET.get("name","")
+	# age = request.GET.get("age", 0)
+    # cache = get_redis_connection("default")
+    cache = Redis(host="115.29.187.120",port="6379",password="123456")
+    cache.set("name",name,20)
+    cache.set("age",age,20)
+    print("name:{}".format(cache.get("name")))
+    print("age:{}".format(cache.get("age")))
+    return HttpResponse("hello, i am {0},age is {1}".format(cache.get("name"),cache.get("age")))
 ```
