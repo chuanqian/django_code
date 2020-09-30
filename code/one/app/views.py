@@ -14,3 +14,7 @@ def index(request,name,age):
     print("name:{}".format(cache.get("name").decode("utf-8")))
     print("age:{}".format(cache.get("age").decode("utf-8")))
     return HttpResponse("hello, i am {0},age is {1}".format(cache.get("name").decode("utf-8"),cache.get("age").decode("utf-8")))
+
+def testSlash(request):
+    print("enter")
+    return "111111"
